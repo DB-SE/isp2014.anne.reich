@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and abstract="true" mandatory="true" name="MangaDB">
+				<or name="Datei">
+					<description>
+						 
+					</description>
+					<feature mandatory="true" name="Importieren">
+						<description>
+							Importier eine vorhandene Datenbank als txt-Datei
+						</description>
+					</feature>
+					<feature mandatory="true" name="Exportieren">
+						<description>
+							Exportiert die aktuelle Datenbank in eine txt-Datei
+						</description>
+					</feature>
+					<feature mandatory="true" name="Zurücksetzen">
+						<description>
+							Setzt die lokale Datenbank zurück auf 0 (leert die Datenbank)
+						</description>
+					</feature>
+				</or>
+				<feature mandatory="true" name="Hilfe">
+					<description>
+						Hilfe und Erklärung zum Programm
+					</description>
+				</feature>
+				<and mandatory="true" name="Datenbank-Übersicht">
+					<description>
+						Übersicht aller Mangareihen
+					</description>
+					<and mandatory="true" name="Neue Mangareihe">
+						<description>
+							Erstellt neue Mangareihe
+						</description>
+						<and mandatory="true" name="Band hinzufügen">
+							<description>
+								Fügt zur Mangreihe ein oder mehrere Bänder hinzu
+							</description>
+							<feature mandatory="true" name="Pflichtfelder">
+								<description>
+									Informationsfelder zum Band ausfüllen (Titel, Autor, Verlag, Preis usw)
+								</description>
+							</feature>
+							<feature name="Untertitel zu Band">
+								<description>
+									Optional: Unteritel zu jedem Band hinzufügen
+								</description>
+							</feature>
+							<feature name="Bild hinzufügen">
+								<description>
+									Bandcover als Bild hinzufügen 
+								</description>
+							</feature>
+						</and>
+						<feature name="Allg Bild hinzufügen">
+							<description>
+								Bild für die gesamte Reihe hinzufügen
+							</description>
+						</feature>
+					</and>
+					<and mandatory="true" name="Mangareihe editieren">
+						<description>
+							existierende Mangareihe bearbeiten
+						</description>
+						<feature mandatory="true" name="Band editieren">
+							<description>
+								Band der Reihe bearbeiten
+							</description>
+						</feature>
+					</and>
+					<and mandatory="true" name="Mangareihe löschen">
+						<description>
+							existierende Reihe löschen aus DB
+						</description>
+						<feature mandatory="true" name="Band löschen">
+							<description>
+								Band löschen
+							</description>
+						</feature>
+					</and>
+					<or name="Suchen">
+						<description>
+							Optional: DB durchsuchen
+						</description>
+						<feature mandatory="true" name="Nach Titel">
+							<description>
+								Nach Titel durchsuchen (mind 2 Zeichen eingeben)
+							</description>
+						</feature>
+						<feature mandatory="true" name="Nach Autor">
+							<description>
+								Alle Mangareihen vom selben Autor ausgeben
+							</description>
+						</feature>
+						<feature mandatory="true" name="Nach Verlag">
+							<description>
+								Alle Mangareihen vom selben Verlag ausgeben
+							</description>
+						</feature>
+						<feature mandatory="true" name="Nach Anfangsbuchstaben">
+							<description>
+								Ausgabe aller Reihen nach dem gesuchten Anfangsbuchstaben
+							</description>
+						</feature>
+					</or>
+					<and name="Mangareihe-Übersicht">
+						<description>
+							Details einer Mangareihe
+						</description>
+						<feature name="Band Übersicht">
+							<description>
+								Details eines Bandes
+							</description>
+						</feature>
+					</and>
+				</and>
+			</and>
+		</struct>
+		<constraints/>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>
