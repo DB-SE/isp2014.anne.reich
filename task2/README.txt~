@@ -1,0 +1,10 @@
+Projekt starten (ohne jar, über cmd)
+
+- in den Ordner mit Main.class hinbewegen
+- folgendes eingeben:
+
+java -cp .:<path>/* Main db
+
+
+<path> = /home/yurili/eclipse_workspaces/isp2014_anne_reich/task2
+
