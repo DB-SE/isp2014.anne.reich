@@ -129,17 +129,6 @@ public class XML {
 			String[] arrPreis, String[] arrUntertitel,
 			String[] arrErscheinungsdatum){
 		
-		//Vorbereitung
-		String[] asHab_ich = new String[arrHab_ich.length];
-		for(int i = 0; i < asHab_ich.length; i++){
-			if(arrHab_ich[i] == 0) asHab_ich[i] = "N";
-			else asHab_ich[i] = "Y";
-		}
-//		String[] asPreis = new String[arrPreis.length];
-//		for(int i = 0; i < asPreis.length; i++){
-//			asPreis[i] = "" + arrPreis[i] + " Euro";
-//		}
-		
 		String newTitel = sTitel.replaceAll("[^a-zA-Z0-9]", "");
 		//Wurzel der Manga
 		Element titel = new Element(newTitel);
@@ -161,7 +150,7 @@ public class XML {
 			band.setAttribute(new Attribute("id", ""+(bandNr)));
 			band.addContent(new Element("Untertitel").setText(arrUntertitel[indBand]));
 			band.addContent(new Element("Preis").setText(arrPreis[indBand]));
-			band.addContent(new Element("Hab_ich").setText(asHab_ich[indBand]));
+			band.addContent(new Element("Hab_ich").setText("" + arrHab_ich[indBand]));
 			band.addContent(new Element("Datum").setText(arrErscheinungsdatum[indBand]));
 				  
 			titel.addContent(band);
@@ -199,9 +188,6 @@ public class XML {
 	public void insertBand(String sTitel, int nBandnr, String sUntertitel,
 			double nPreis, int nHab_ich, String sErscheinungsdatum, String sStatus){
 
-		String sHab_ich;
-		if(nHab_ich == 0) sHab_ich = "N";
-		else sHab_ich = "Y";
 		
 		String newTitel = sTitel.replaceAll("[^A-Za-z0-9]", "");
 		Element titel = root.getChild(newTitel);
@@ -210,7 +196,7 @@ public class XML {
 		band.setAttribute(new Attribute("id", ""+(nBandnr)));
 		band.addContent(new Element("Untertitel").setText(sUntertitel));
 		band.addContent(new Element("Preis").setText(""+(nPreis)));
-		band.addContent(new Element("Hab_ich").setText(sHab_ich));
+		band.addContent(new Element("Hab_ich").setText("" + nHab_ich));
 		band.addContent(new Element("Datum").setText(sErscheinungsdatum));
 			  
 		titel.addContent(band);
@@ -246,10 +232,6 @@ public class XML {
 	public void editManga(String sTitel, String sAutor, String sVerlag,
 			int nAnzBaender, String sStatus, int nBandnr, int nHab_ich,
 			double nPreis, String sUntertitel, String sErscheinungsdatum){
-
-		String sHab_ich;
-		if(nHab_ich == 0) sHab_ich = "N";
-		else sHab_ich = "Y";
 		
 		String newTitel = sTitel.replaceAll("[^A-Za-z0-9]", "");
 		Element titel = root.getChild(newTitel);
@@ -262,7 +244,7 @@ public class XML {
 		Element band = titel.getChild("Band_" + (nBandnr));
 		band.getChild("Untertitel").setText(sUntertitel);
 		band.getChild("Preis").setText(""+(nPreis));
-		band.getChild("Hab_ich").setText(sHab_ich);
+		band.getChild("Hab_ich").setText("" + nHab_ich);
 		band.getChild("Datum").setText(sErscheinungsdatum);	
 	}
 
@@ -371,7 +353,7 @@ public class XML {
 		for(Element c:root.getDescendants(filter))
 		{
 			if(!sTitel.equals(c.getParentElement().getParentElement().getAttributeValue("Titel"))){
-				if(c.getText().equals("N")){
+				if(c.getText().equals("0")){
 					int nBandnr = Integer.parseInt(c.getParentElement().getAttributeValue("id"));
 					String sDate = c.getParentElement().getChildText("Datum");
 					String[] split = c.getParentElement().getChildText("Preis").split(" ");
@@ -421,7 +403,7 @@ public class XML {
 			
 			//zählt alle Baender aus dieser Reihe, die ich habe    	
 	    	//zählt Gesamtpreis der Reihe, die ich habe   
-			if(manga.getChild("Band_" + i).getChildTextNormalize("Hab_ich").equals("Y")){
+			if(manga.getChild("Band_" + i).getChildTextNormalize("Hab_ich").equals("1")){
 				nHab++;
 				
 				String[] split = manga.getChild("Band_" + i).getChildTextNormalize("Preis").split(" ");
@@ -477,11 +459,6 @@ public class XML {
 			String sUntertitel = manga.getChild("Band_" + (i)).getChildTextNormalize("Untertitel");
 			String sPreis = manga.getChild("Band_" + (i)).getChildTextNormalize("Preis");
 			String sHab = manga.getChild("Band_" + (i)).getChildTextNormalize("Hab_ich");
-			int nHab = 0;
-			if(sHab.equals("Y"))
-				nHab = 1;
-			else
-				nHab = 0;
 			String sDate = manga.getChild("Band_" + (i)).getChildTextNormalize("Datum");
 							
 			sReturn[i-1][0] = sAutor;
@@ -489,7 +466,7 @@ public class XML {
 			sReturn[i-1][2] = sStatus;
 			sReturn[i-1][3] = sUntertitel;
 			sReturn[i-1][4] = "" + (i);
-			sReturn[i-1][5] = "" + nHab;
+			sReturn[i-1][5] = sHab;
 			sReturn[i-1][6] = sPreis;
 			sReturn[i-1][7] = sDate;
 							
@@ -522,7 +499,8 @@ public class XML {
 			
 			int nHab = 0;
 			for(int j = 0; j < nAnzahlBand; j++){
-				if(manga.getChild("Band_" + (j+1)).getChildTextNormalize("Hab_ich").equals("Y"))
+				String sHab = manga.getChild("Band_" + (j+1)).getChildTextNormalize("Hab_ich");
+				if(sHab.equals("1"))
 					nHab++;
 			}
 			
@@ -679,7 +657,7 @@ public class XML {
 			
 			int nHab = 0;
 			for(int j = 0; j < nAnzahlBand; j++){
-				if(manga.getChild("Band_" + (j+1)).getChildTextNormalize("Hab_ich").equals("Y"))
+				if(manga.getChild("Band_" + (j+1)).getChildTextNormalize("Hab_ich").equals("1"))
 					nHab++;
 			}
 			

@@ -815,7 +815,7 @@ public class Start {
 							arrPreis[j] = Double.valueOf(dPreis);
 						}
 						else{
-							if(setArrMangas[nAnz+j][3].equals("Y"))
+							if(setArrMangas[nAnz+j][3].equals("1"))
 								arrHab[j] = 1;
 							else
 								arrHab[j] = 0;

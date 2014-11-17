@@ -1,4 +1,4 @@
-Leider weiß ich nicht, wie man externe Libarys und eine executableJar in SmartGit hochlädt (bzw ob das überhaupt möglich ist?)
+Libraries und executable Jar-Datei sind im Release "task2 - mangaDBv1" in meinem GitHub-Repo zu finden
 
 +++++++++++++++++++++++++++++
 
@@ -12,7 +12,7 @@ java -cp .:<path>/lib/* isp1415.ar.Main <features>
 
 ++++++++++++++++++++++++++++++
 
-Projekt starten (mit jar, über cmd) (falls eine erstellt wurde)
+Projekt starten (mit jar, über cmd)
 
 - in den Ordner gehen, wo die jar Datei liegt (/jar/)
 - AllManga.xml sollte sich im selben Ordner befinden
