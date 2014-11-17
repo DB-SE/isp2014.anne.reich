@@ -1004,22 +1004,24 @@ public class Bibo {
 
 			public void valueChanged(ListSelectionEvent e) {
 					try {
-						if(features[3] && list.getSelectedValue() != null){
+						if(list.getSelectedValue() != null){
 							String select = list.getSelectedValue().toString();
 							getMangaInfo(select);
-							
-							lName.setText(mangaDetail[0]);
-							lName.setToolTipText(mangaDetail[0]);
 							sName = mangaDetail[0];
-							lZeichner.setText(mangaDetail[1]);
-							lZeichner.setToolTipText(mangaDetail[1]);
-							lVerlag.setText(mangaDetail[2]);
-							lVerlag.setToolTipText(mangaDetail[2]);
-							lHab.setText(mangaDetail[3]);
-							lAnz.setText(mangaDetail[4]);
-							lStatus.setText(mangaDetail[5]);
-							lKosten.setText(mangaDetail[6]);
-							lNext.setText(mangaDetail[7]);	
+							
+							if(features[3]){							
+								lName.setText(mangaDetail[0]);
+								lName.setToolTipText(mangaDetail[0]);
+								lZeichner.setText(mangaDetail[1]);
+								lZeichner.setToolTipText(mangaDetail[1]);
+								lVerlag.setText(mangaDetail[2]);
+								lVerlag.setToolTipText(mangaDetail[2]);
+								lHab.setText(mangaDetail[3]);
+								lAnz.setText(mangaDetail[4]);
+								lStatus.setText(mangaDetail[5]);
+								lKosten.setText(mangaDetail[6]);
+								lNext.setText(mangaDetail[7]);	
+							}
 						}
 						
 					} catch (SQLException e1) {

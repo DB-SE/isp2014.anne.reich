@@ -1,5 +1,7 @@
 package isp1415.ar.dbPack;
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -12,6 +14,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.filter.ElementFilter;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 /**
@@ -51,7 +54,7 @@ public class XML {
 	private static Document doc = null;
 	private File xml = null;
 	SAXBuilder builder = null;
-	XMLOutputter fmt = null;
+	XMLOutputter output = null;
 
 	/**
 	 * - Verbinden mit dem lokalen SQL-Server 
@@ -70,7 +73,7 @@ public class XML {
 			try {
 				builder = new SAXBuilder();
 				doc = builder.build(xml);
-				fmt = new XMLOutputter();
+				output = new XMLOutputter();
 				root = doc.getRootElement();
 				
 				System.out.println("Connection erfolgreich!");
@@ -123,7 +126,7 @@ public class XML {
 	 */
 	public void insertManga(String sTitel, String sAutor, String sVerlag,
 			int nAnzBaender, String sStatus, int[] arrHab_ich,
-			double[] arrPreis, String[] arrUntertitel,
+			String[] arrPreis, String[] arrUntertitel,
 			String[] arrErscheinungsdatum){
 		
 		//Vorbereitung
@@ -132,10 +135,10 @@ public class XML {
 			if(arrHab_ich[i] == 0) asHab_ich[i] = "N";
 			else asHab_ich[i] = "Y";
 		}
-		String[] asPreis = new String[arrPreis.length];
-		for(int i = 0; i < asPreis.length; i++){
-			asPreis[i] = "" + arrPreis[i];
-		}
+//		String[] asPreis = new String[arrPreis.length];
+//		for(int i = 0; i < asPreis.length; i++){
+//			asPreis[i] = "" + arrPreis[i] + " Euro";
+//		}
 		
 		String newTitel = sTitel.replaceAll("[^a-zA-Z0-9]", "");
 		//Wurzel der Manga
@@ -157,7 +160,7 @@ public class XML {
 			Element band = new Element("Band_" + (bandNr));
 			band.setAttribute(new Attribute("id", ""+(bandNr)));
 			band.addContent(new Element("Untertitel").setText(arrUntertitel[indBand]));
-			band.addContent(new Element("Preis").setText(asPreis[indBand]));
+			band.addContent(new Element("Preis").setText(arrPreis[indBand]));
 			band.addContent(new Element("Hab_ich").setText(asHab_ich[indBand]));
 			band.addContent(new Element("Datum").setText(arrErscheinungsdatum[indBand]));
 				  
@@ -167,6 +170,8 @@ public class XML {
 		}
 		
 		root.addContent(titel);		
+		
+		saveChange();
 	}
 
 	/**
@@ -271,6 +276,10 @@ public class XML {
 		
 		String newTitel = sTitel.replaceAll("[^A-Za-z0-9]", "");
 		root.removeChild(newTitel);
+		output.setFormat(Format.getPrettyFormat());
+		
+		saveChange();
+		  
 	}
 
 	/**
@@ -288,6 +297,20 @@ public class XML {
 		
 		titel.removeChild("Band_" + (nBandNr));
 		}
+	
+	public void saveChange(){
+		output.setFormat(Format.getPrettyFormat());
+		
+		  try {
+			FileOutputStream outputStream = new FileOutputStream(xml);
+			output.output(doc, outputStream);
+			outputStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  System.out.println("Aenderung gespeichert");
+	}
 
 	/**
 	 * Berechnet die Gesamtpreis aller Mangas (die ich besitze)
@@ -451,19 +474,24 @@ public class XML {
 		
 		for(int i = 1; i < manga.getChildren().size(); i++){
 			
-			String sUntertitel = manga.getChild("Band_" + i).getChildTextNormalize("Untertitel");
-			String sPreis = manga.getChild("Band_" + i).getChildTextNormalize("Preis");
-			String sHab = manga.getChild("Band_" + i).getChildTextNormalize("Hab_ich");
-			String sDate = manga.getChild("Band_" + i).getChildTextNormalize("Datum");
+			String sUntertitel = manga.getChild("Band_" + (i)).getChildTextNormalize("Untertitel");
+			String sPreis = manga.getChild("Band_" + (i)).getChildTextNormalize("Preis");
+			String sHab = manga.getChild("Band_" + (i)).getChildTextNormalize("Hab_ich");
+			int nHab = 0;
+			if(sHab.equals("Y"))
+				nHab = 1;
+			else
+				nHab = 0;
+			String sDate = manga.getChild("Band_" + (i)).getChildTextNormalize("Datum");
 							
-			sReturn[i][0] = sAutor;
-			sReturn[i][1] = sVerlag;
-			sReturn[i][2] = sStatus;
-			sReturn[i][3] = sUntertitel;
-			sReturn[i][4] = "" + i;
-			sReturn[i][5] = sHab;
-			sReturn[i][6] = sPreis;
-			sReturn[i][7] = sDate;
+			sReturn[i-1][0] = sAutor;
+			sReturn[i-1][1] = sVerlag;
+			sReturn[i-1][2] = sStatus;
+			sReturn[i-1][3] = sUntertitel;
+			sReturn[i-1][4] = "" + (i);
+			sReturn[i-1][5] = "" + nHab;
+			sReturn[i-1][6] = sPreis;
+			sReturn[i-1][7] = sDate;
 							
 		}  	
     	
@@ -644,7 +672,6 @@ public class XML {
 			Element manga = root.getChild(newTitel);
 			
 			sReturn[i][0] = manga.getAttributeValue("Titel");
-			System.out.println(sReturn[i][0]);
 			
 			String sStatus = manga.getChild("Info").getChildText("Status");
 			
@@ -665,7 +692,8 @@ public class XML {
 			else{
 				sReturn[i][1] = "gruen";
 			}
-			System.out.println(sReturn[i][1]);
+			
+			i++;
 		}
 		
     	return sReturn;
@@ -678,10 +706,14 @@ public class XML {
      * @throws SQLException
      */
     public String[][] exportAll() {
-    	int nAnzahl = root.getChildren().size();
+    	int nAnzahl = 0;
+    	for(int i = 0; i < root.getChildren().size(); i++){
+    		nAnzahl += (root.getChildren().get(i).getChildren().size()-1);
+    	}
 		String[][] sReturn = new String[nAnzahl][10];
 		
-		for(int i = 0; i < nAnzahl; i++){
+		int returnIndex = 0;
+		for(int i = 0; i < root.getChildren().size(); i++){
 			Element manga = root.getChildren().get(i);
 			
 			String sTitel = manga.getAttributeValue("Titel");
@@ -697,17 +729,17 @@ public class XML {
 				String sHab = manga.getChild("Band_" + j).getChildTextNormalize("Hab_ich");
 				String sDate = manga.getChild("Band_" + j).getChildTextNormalize("Datum");				
 				
-				sReturn[i][0] = sTitel;
-				sReturn[i][1] = sAutor;
-				sReturn[i][2] = sVerlag;
-				sReturn[i][3] = "" + nAnzahlBand;
-				sReturn[i][4] = sStatus;
-				sReturn[i][5] = "" + j;
-				sReturn[i][6] = sUntertitel;
-				sReturn[i][7] = sPreis;
-				sReturn[i][8] = sHab;
-				sReturn[i][9] = sDate;
-								
+				sReturn[returnIndex][0] = sTitel;
+				sReturn[returnIndex][1] = sAutor;
+				sReturn[returnIndex][2] = sVerlag;
+				sReturn[returnIndex][3] = "" + nAnzahlBand;
+				sReturn[returnIndex][4] = sStatus;
+				sReturn[returnIndex][5] = "" + j;
+				sReturn[returnIndex][6] = sUntertitel;
+				sReturn[returnIndex][7] = sPreis;
+				sReturn[returnIndex][8] = sHab;
+				sReturn[returnIndex][9] = sDate;
+				returnIndex++;				
 			}  	
 		}
 		

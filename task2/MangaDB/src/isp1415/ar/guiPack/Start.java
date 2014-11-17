@@ -19,6 +19,7 @@ import javax.swing.table.*;
 
 
 
+
 public class Start {
 	private JFrame fenster;
 //	private JPanel pNORTH, pCENTER, pEAST, pSOUTH;
@@ -801,17 +802,28 @@ public class Start {
 				
 					int[] arrHab = new int[nAnzBaender];
 					double[] arrPreis = new double[nAnzBaender];
+					String[] arrsPreis = new String[nAnzBaender];
 					String[] arrUntertitel = new String[nAnzBaender];
 					String[] arrErscheinung = new String[nAnzBaender];
 					
 					for(int j = 0; j < nAnzBaender; j++){
-						arrHab[j] = Integer.valueOf(setArrMangas[nAnz+j][3]);
 						
-						String[] split = setArrMangas[nAnz+j][2].split(" ");
-//						String[] split2 = split[0].split(",");
-						String dPreis = split[0]; 
-//								split2[0] + "." + split2[1];
-						arrPreis[j] = Double.valueOf(dPreis);					
+						if(db != null){
+							arrHab[j] = Integer.valueOf(setArrMangas[nAnz+j][3]);
+							String[] split = setArrMangas[nAnz+j][2].split(" ");
+							String dPreis = split[0];
+							arrPreis[j] = Double.valueOf(dPreis);
+						}
+						else{
+							if(setArrMangas[nAnz+j][3].equals("Y"))
+								arrHab[j] = 1;
+							else
+								arrHab[j] = 0;
+							
+							arrsPreis[j] = setArrMangas[nAnz+j][2];
+						}
+						
+											
 						
 						arrUntertitel[j] = setArrMangas[nAnz+j][1];
 						arrErscheinung[j] = setArrMangas[nAnz+j][4];
@@ -825,9 +837,8 @@ public class Start {
 					if(db != null)
 						db.insertManga(sTitel, sAutor, sVerlag, nAnzBaender, sStatus, arrHab, arrPreis, arrUntertitel, arrErscheinung);
 					else
-						xml.insertManga(sTitel, sAutor, sVerlag, nAnzBaender, sStatus, arrHab, arrPreis, arrUntertitel, arrErscheinung);
+						xml.insertManga(sTitel, sAutor, sVerlag, nAnzBaender, sStatus, arrHab, arrsPreis, arrUntertitel, arrErscheinung);
 				}
-
 				return 1;
 			}
 			else {

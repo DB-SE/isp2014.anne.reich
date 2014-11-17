@@ -537,6 +537,7 @@ public class NeuEditDetail {
 		
 		int[] arrHab = new int[read.length];
 		double[] arrPreis = new double[read.length];
+		String[] arrsPreis = new String[read.length];
 		String[] arrUntertitel = new String[read.length];
 		String[] arrErscheinung = new String[read.length];
 		
@@ -544,6 +545,7 @@ public class NeuEditDetail {
 			arrHab[i] = Integer.valueOf(read[i][4]);
 			
 			if(!(read[i][5].equals("Euro"))){
+				arrsPreis[i] = ((String) tabModel.getValueAt(1, 3));
 				String[] split = ((String) tabModel.getValueAt(i, 3)).split(" ");
 				String[] split2 = split[0].split(",");
 				String dPreis = split2[0] + "." + split2[1];
@@ -557,7 +559,7 @@ public class NeuEditDetail {
 		if(db != null)
 			db.insertManga(read[0][0], read[0][1], read[0][2], read.length, read[0][3], arrHab, arrPreis, arrUntertitel, arrErscheinung);
 		else
-			xml.insertManga(read[0][0], read[0][1], read[0][2], read.length, read[0][3], arrHab, arrPreis, arrUntertitel, arrErscheinung);
+			xml.insertManga(read[0][0], read[0][1], read[0][2], read.length, read[0][3], arrHab, arrsPreis, arrUntertitel, arrErscheinung);
 	}
 	
 	private void editManga() throws SQLException{
