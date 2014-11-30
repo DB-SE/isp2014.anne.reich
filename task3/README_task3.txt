@@ -1,4 +1,4 @@
-Libraries und executable Jar-Datei sind im Release "task2 - mangaDBv1" in meinem GitHub-Repo zu finden
+Libraries sind im Release "task3 - libs" in meinem GitHub-Repo zu finden
 
 +++++++++++++++++++++++++++++
 
