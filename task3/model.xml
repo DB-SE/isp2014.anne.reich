@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and abstract="true" mandatory="true" name="task3">
+				<and abstract="true" mandatory="true" name="file">
+					<feature name="reset"/>
+					<and name="dataTransfer">
+						<feature name="import"/>
+						<feature name="export"/>
+					</and>
+				</and>
+				<feature name="help"/>
+				<and abstract="true" mandatory="true" name="database_overview">
+					<and mandatory="true" name="insertManga">
+						<and abstract="true" mandatory="true" name="insertBand">
+							<feature mandatory="true" name="mandatoryFields"/>
+							<feature name="subtitleBand"/>
+							<feature name="insertImageBand"/>
+						</and>
+						<feature name="insertImage"/>
+					</and>
+					<and mandatory="true" name="editManga">
+						<feature mandatory="true" name="editBand"/>
+					</and>
+					<and mandatory="true" name="deleteManga">
+						<feature mandatory="true" name="deleteBand"/>
+					</and>
+					<or name="search">
+						<feature mandatory="true" name="byLetter"/>
+						<or mandatory="true" name="byTextInput">
+							<feature mandatory="true" name="byTitle"/>
+							<feature mandatory="true" name="byPublisher"/>
+							<feature mandatory="true" name="byAuthor"/>
+						</or>
+					</or>
+					<and name="detailViewManga">
+						<feature name="detailViewBand"/>
+					</and>
+				</and>
+				<alt abstract="true" mandatory="true" name="database_access">
+					<feature mandatory="true" name="xml"/>
+					<feature mandatory="true" name="database"/>
+				</alt>
+			</and>
+		</struct>
+		<constraints/>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>
