@@ -4,7 +4,7 @@
     <Active>1</Active>
   </detailViewManga>
   <byLetter id="byLetter">
-    <Active>0</Active>
+    <Active>1</Active>
   </byLetter>
   <byTextInput id="byTextInput">
     <Active>0</Active>
