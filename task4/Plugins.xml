@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Plugin>
+  <detailViewManga id="detailViewManga">
+    <Active>1</Active>
+  </detailViewManga>
+  <byLetter id="byLetter">
+    <Active>0</Active>
+  </byLetter>
+  <byTextInput id="byTextInput">
+    <Active>0</Active>
+  </byTextInput>
+  <dataTransfer id="dataTransfer">
+    <Active>1</Active>
+  </dataTransfer>
+  <reset id="reset">
+    <Active>0</Active>
+  </reset>
+  <insertImage id="insertImage">
+    <Active>0</Active>
+  </insertImage>
+</Plugin>
