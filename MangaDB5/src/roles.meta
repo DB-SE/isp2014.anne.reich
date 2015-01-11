@@ -1,0 +1,204 @@
+{
+	"features" : [
+		"reset",
+		"import",
+		"export",
+		"help",
+		"insertManga",
+		"mandatoryFields",
+		"editManga",
+		"editBand",
+		"deleteManga",
+		"deleteBand",
+		"search",
+		"byLetter",
+		"byTextInput",
+		"detailViewManga",
+		"xml",
+		"baseGUI"
+	],
+	"roles": {
+		"createMenu": {
+			"reset": "createMenu__wrappee__reset",
+			"import": "createMenu__wrappee__import",
+			"export": "createMenu__wrappee__export",
+			"baseGUI": "createMenu"
+		},
+		"importDB": {
+			"import": "importDB"
+		},
+		"exportDB": {
+			"export": "exportDB"
+		},
+		"byLetter": {
+			"byLetter": "byLetter__wrappee__byLetter",
+			"baseGUI": "byLetter"
+		},
+		"byTextInput": {
+			"byTextInput": "byTextInput__wrappee__byTextInput",
+			"baseGUI": "byTextInput"
+		},
+		"getDetailPanel": {
+			"detailViewManga": "getDetailPanel__wrappee__detailViewManga",
+			"baseGUI": "getDetailPanel"
+		},
+		"isActive": {
+			"detailViewManga": "isActive__wrappee__detailViewManga",
+			"baseGUI": "isActive"
+		},
+		"getXml": {
+			"xml": "getXml"
+		},
+		"fensterErzeugen": {
+			"xml": "fensterErzeugen__wrappee__xml",
+			"baseGUI": "fensterErzeugen"
+		},
+		"getStartInfo": {
+			"xml": "getStartInfo"
+		},
+		"resetDB": {
+			"xml": "resetDB"
+		},
+		"exportAll": {
+			"xml": "exportAll"
+		},
+		"deleteAndCreateDB": {
+			"xml": "deleteAndCreateDB"
+		},
+		"insertManga": {
+			"xml": "insertManga",
+			"baseGUI": "insertManga"
+		},
+		"startStart": {
+			"xml": "startStart"
+		},
+		"main": {
+			"xml": "main"
+		},
+		"getConnection": {
+			"xml": "getConnection"
+		},
+		"insertBand": {
+			"xml": "insertBand"
+		},
+		"editManga": {
+			"xml": "editManga",
+			"baseGUI": "editManga"
+		},
+		"deleteManga": {
+			"xml": "deleteManga"
+		},
+		"deleteBand": {
+			"xml": "deleteBand"
+		},
+		"saveChange": {
+			"xml": "saveChange"
+		},
+		"selectSum": {
+			"xml": "selectSum"
+		},
+		"getStart": {
+			"xml": "getStart"
+		},
+		"getBiboDetails": {
+			"xml": "getBiboDetails"
+		},
+		"getEditDetails": {
+			"xml": "getEditDetails"
+		},
+		"getMangareiheTitel": {
+			"xml": "getMangareiheTitel"
+		},
+		"getVerlag": {
+			"xml": "getVerlag"
+		},
+		"getAutor": {
+			"xml": "getAutor"
+		},
+		"getTitelByAutor": {
+			"xml": "getTitelByAutor"
+		},
+		"getTitelByVerlag": {
+			"xml": "getTitelByVerlag"
+		},
+		"getReiheStartsWith": {
+			"xml": "getReiheStartsWith"
+		},
+		"getNeuEditDetail": {
+			"xml": "getNeuEditDetail"
+		},
+		"getTitelColorList": {
+			"xml": "getTitelColorList"
+		},
+		"getTitelColorListSort": {
+			"xml": "getTitelColorListSort"
+		},
+		"getMangaInfo": {
+			"xml": "getMangaInfo"
+		},
+		"getAutorList": {
+			"xml": "getAutorList"
+		},
+		"getVerlagList": {
+			"xml": "getVerlagList"
+		},
+		"getOnlyTitelList": {
+			"xml": "getOnlyTitelList"
+		},
+		"erscheinung": {
+			"baseGUI": "erscheinung"
+		},
+		"getDate": {
+			"baseGUI": "getDate"
+		},
+		"compare": {
+			"baseGUI": "compare"
+		},
+		"eManga": {
+			"baseGUI": "eManga"
+		},
+		"nManga": {
+			"baseGUI": "nManga"
+		},
+		"readDetails": {
+			"baseGUI": "readDetails"
+		},
+		"getEditInfo": {
+			"baseGUI": "getEditInfo"
+		},
+		"getCellEditorValue": {
+			"baseGUI": "getCellEditorValue"
+		},
+		"getTableCellEditorComponent": {
+			"baseGUI": "getTableCellEditorComponent"
+		},
+		"getMangaListSort": {
+			"baseGUI": "getMangaListSort"
+		},
+		"autoComplete": {
+			"baseGUI": "autoComplete"
+		},
+		"run": {
+			"baseGUI": "run"
+		},
+		"sammlung": {
+			"baseGUI": "sammlung"
+		},
+		"sortierung": {
+			"baseGUI": "sortierung"
+		},
+		"klick": {
+			"baseGUI": "klick"
+		},
+		"setTrefferList": {
+			"baseGUI": "setTrefferList"
+		},
+		"getFarbe": {
+			"baseGUI": "getFarbe"
+		},
+		"getListCellRendererComponent": {
+			"baseGUI": "getListCellRendererComponent"
+		}
+	}
+
+}
