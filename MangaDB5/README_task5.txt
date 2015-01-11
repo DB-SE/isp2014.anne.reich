@@ -1,4 +1,4 @@
-Libraries sind im Release "task5 - libs" in meinem GitHub-Repo zu finden
+Libraries sind die selben wie sonst auch immer
 
 +++++++++++++++++++++++++++++
 
