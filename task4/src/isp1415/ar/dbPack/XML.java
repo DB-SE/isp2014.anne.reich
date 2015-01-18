@@ -49,7 +49,7 @@ import org.jdom2.output.XMLOutputter;
  *         getReiheStartsWithAutor() - gibt alle Mangareihen aus, von einem bestimmten Autor + Status-Farbe
  */
 
-public class XML {
+public class XML implements isp1415.ar.plugins.databaseAccess{
 	private static Element root = null;
 	private static Document doc = null;
 	private File xml = null;
@@ -60,6 +60,7 @@ public class XML {
 	 * - Verbinden mit dem lokalen SQL-Server 
 	 * - testen, ob eine Datenbank existiert
 	 */
+	@Override
 	public void getConnection(){
 		
 		File file = new File("AllManga.xml");
@@ -85,6 +86,7 @@ public class XML {
 
 	}
 	
+	@Override
 	public void deleteAndCreateDB() {
 		boolean fOk;
 		
@@ -124,6 +126,7 @@ public class XML {
 	 * @param arrErscheinungsdatum
 	 *            (string[]) = Erscheinungsdatum als String (z.B. "Februar 2013")
 	 */
+	@Override
 	public void insertManga(String sTitel, String sAutor, String sVerlag,
 			int nAnzBaender, String sStatus, int[] arrHab_ich,
 			String[] arrPreis, String[] arrUntertitel,
@@ -185,8 +188,9 @@ public class XML {
 	 * @param sStatus
 	 *            (string) = abgeschlossene oder fortzgesetzte Reihe in Deutschland
 	 */
+	@Override
 	public void insertBand(String sTitel, int nBandnr, String sUntertitel,
-			double nPreis, int nHab_ich, String sErscheinungsdatum, String sStatus){
+			double nPreis, int nHab_ich, String sErscheinungsdatum, int nAnzBaender, String sVerlag, String sStatus){
 
 		
 		String newTitel = sTitel.replaceAll("[^A-Za-z0-9]", "");
@@ -229,6 +233,7 @@ public class XML {
 	 * @param sErscheinungsdatum
 	 *            (string) = Erscheinungsdatum als String (z.B. "Februar 2013")
 	 */
+	@Override
 	public void editManga(String sTitel, String sAutor, String sVerlag,
 			int nAnzBaender, String sStatus, int nBandnr, int nHab_ich,
 			double nPreis, String sUntertitel, String sErscheinungsdatum){
@@ -254,6 +259,7 @@ public class XML {
 	 * @param sTitel
 	 * 				(string) = Titel der Manga
 	 */
+	@Override
 	public void deleteManga(String sTitel)  {
 		
 		String newTitel = sTitel.replaceAll("[^A-Za-z0-9]", "");
@@ -272,7 +278,8 @@ public class XML {
 	 * @param nBandnr
 	 *            (int) = Band Nr. x von der Manga
 	 */
-	public void deleteBand(int nBandNr, String sTitel){
+	@Override
+	public void deleteBand(int nBandNr, int nAnzBaender, String sTitel){
 		
 		String newTitel = sTitel.replaceAll("[^A-Za-z0-9]", "");
 		Element titel = root.getChild(newTitel);
@@ -280,6 +287,7 @@ public class XML {
 		titel.removeChild("Band_" + (nBandNr));
 		}
 	
+	@Override
 	public void saveChange(){
 		output.setFormat(Format.getPrettyFormat());
 		
@@ -299,7 +307,8 @@ public class XML {
 	 * Berechnet die Anzahl aller Mangareihen (die ich besitze)
 	 * Berechnet die Anzahl aller Mangabaender (die ich besitze)
 	 */
-	private static double[] selectSum(){
+	@Override
+	public double[] selectSum(){
 		/*
 		 * select sum(preis) as 'Gesamtpreis' from mangadb.Baender b where b.hab_ich = 'Y';
 		 * select count(*) as 'Alle Mangareihen' from mangadb.mangareihen;
@@ -331,6 +340,7 @@ public class XML {
 	 * @return String[][] mit Gesamtsumme[0][0], Anzahl meiner Mangareihen[1][0], Mangas[2][0], Titel[i+3][0],Erscheinungsdatum[i+3][1] und Preis[i+3][2] aller Mangas
 	 * @throws SQLException 
 	 */
+	@Override
     public String[][] getStart() {
     	//holt die Sum-Werte aus der Datenbank
     	double[] sum = selectSum();
@@ -380,6 +390,7 @@ public class XML {
      * @return String[] mit Titel[0], Autor[1], Verlag[2], hab_ich[3], Anzahl der Baender[4],
      * 			Status[5], Gesamtkosten[6], Erscheinungsdatum meiner fehlender Manga[7]
      */
+    @Override
     public String[] getBiboDetails(String titelManga) {
     	//sReturn wird zurückgegeben
     	String[] sReturn = new String[8];
@@ -442,6 +453,7 @@ public class XML {
      * 			BandNr[i][4], Hab_ich[i][5], Preis[i][6], Erscheinung[i][7], i = Anzahl Baender
      * @
      */
+    @Override
     public String[][] getEditDetails(String titelManga) {
       	
 		String newTitel = titelManga.replaceAll("[^a-zA-Z0-9]", "");
@@ -482,6 +494,7 @@ public class XML {
      * @return String[][] mit Titel[i][0], Farbe[i][1] und i = alle Mangas
      * @throws SQLException 
      */
+    @Override
     public String[][] getMangareiheTitel() {
     	
 		List<Element> mangas = root.getChildren();
@@ -525,6 +538,7 @@ public class XML {
      * @return String[] 
      * @throws SQLException 
      */   
+    @Override
     public String[] getVerlag() {
     	
     	List<Element> mangas = root.getChildren();
@@ -549,6 +563,7 @@ public class XML {
      * @return String[]
      * @throws SQLException 
      */   
+    @Override
     public String[] getAutor() {
     	List<Element> mangas = root.getChildren();
 		int nAnzahlManga = mangas.size();
@@ -572,6 +587,7 @@ public class XML {
      * @return String[]
      * @throws SQLException 
      */   
+    @Override
     public String[] getTitelByAutor(String autor){
     	List<Element> mangas = root.getChildren();
 		int nAnzahlManga = mangas.size();
@@ -596,6 +612,7 @@ public class XML {
      * @return String[]
      * @throws SQLException 
      */   
+    @Override
     public String[] getTitelByVerlag(String verlag) {
     	List<Element> mangas = root.getChildren();
 		int nAnzahlManga = mangas.size();
@@ -621,6 +638,7 @@ public class XML {
      * @return String[][] mit Titel[i][0], Farbe[i][1] und i = alle gefilterten Mangas
      * @throws SQLException
      */
+    @Override
     public String[][] getReiheStartsWith(String letter) {
 		
 		List<Element> mangas = root.getChildren();
@@ -683,6 +701,7 @@ public class XML {
      * Untertitel[i][6], Preis[i][7], Habe_ich[i][8], Erscheinung[i][9]
      * @throws SQLException
      */
+    @Override
     public String[][] exportAll() {
     	int nAnzahl = 0;
     	for(int i = 0; i < root.getChildren().size(); i++){
