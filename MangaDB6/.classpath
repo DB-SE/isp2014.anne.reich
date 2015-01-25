@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="subtitleBand.aj|insertImageBand.aj|insertImage.aj|detailViewBand.aj|database.aj" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Yuri/eclipse_workspaces/isp1415/MangaDB6/lib/jdom-2.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Yuri/eclipse_workspaces/isp1415/MangaDB6/lib/mysql-connector-java-5.1.23-bin.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
